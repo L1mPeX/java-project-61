@@ -8,7 +8,7 @@
 
 Write in terminal:
 
-```bash
+```sh
 ./gradlew run
 ```
 
