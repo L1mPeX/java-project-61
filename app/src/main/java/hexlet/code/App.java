@@ -1,5 +1,7 @@
 package hexlet.code;
 
+import java.util.Scanner;
+
 /**
  * Основной класс приложения Brain Games.
  *
@@ -15,6 +17,18 @@ public final class App {
      * @param args аргументы командной строки
      */
     public static void main(final String[] args) {
-        Cli.greet();
+        System.out.print("""
+                Please enter the game number and press Enter.
+                1 - Greet
+                0 - Exit
+                Your choice: """);
+        try (Scanner scanner = new Scanner(System.in)) {
+            String choice = scanner.nextLine();
+            switch (choice) {
+                case "1" -> Cli.greet();
+                case "0" -> System.out.println("Goodbye!");
+                default -> System.out.println("Unknown choice: " + choice);
+            }
+        }
     }
 }
