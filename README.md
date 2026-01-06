@@ -1,8 +1,8 @@
 ### Hexlet tests, linter status, license and Java version:
 
 [![Actions Status](https://github.com/L1mPeX/java-project-61/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/L1mPeX/java-project-61/actions)
-[![MIT License](https://img.shields.io/badge/License-MIT-brightgreen?style=for-the-badge)](https://choosealicense.com/licenses/mit/)
-[![Java version](https://img.shields.io/badge/Java-21.0.8-brightgreen?style=for-the-badge)](https://www.oracle.com/java/technologies/javase/21-0-8-relnotes.html)
+[![MIT License](https://img.shields.io/badge/licence-MIT-green)](https://choosealicense.com/licenses/mit/)
+[![Java version](https://img.shields.io/badge/JDK-21.0.8-green)](https://www.oracle.com/java/technologies/javase/21-0-8-relnotes.html)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=L1mPeX_java-project-61&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=L1mPeX_java-project-61)
 
 ## Deployment
