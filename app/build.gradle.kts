@@ -1,6 +1,7 @@
 plugins {
-    id("java")
+    java
     application
+    `checkstyle`
 }
 
 group = "hexlet.code"
@@ -24,6 +25,20 @@ application {
     mainClass.set("hexlet.code.App")
 }
 
-tasks.getByName("run", JavaExec::class) {
+tasks.getByName<JavaExec>("run") {
     standardInput = System.`in`
+}
+
+checkstyle {
+    toolVersion = "10.7.0"  // ← стабильная версия БЕЗ конфликтов Guava
+    configFile = rootProject.file("config/checkstyle/checkstyle.xml")
+    isIgnoreFailures = false
+}
+
+tasks.jar {
+    manifest {
+        attributes(
+            "Main-Class" to "hexlet.code.App"
+        )
+    }
 }
