@@ -29,6 +29,12 @@ Or you can do this:
 ./build/install/app/bin/app
 ```
 
+## Checkstyle
+
+```bash
+./gradlew checkstyleMain
+```
+
 ## Demo
 
 Insert gif or link to demo
