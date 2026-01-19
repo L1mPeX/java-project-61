@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import java.util.Scanner;
+import java.security.SecureRandom;
 
 public class IsEven {
     private String greeting;
@@ -27,7 +28,7 @@ public class IsEven {
         int randomNumber;
         printGreetingString();
         while (score != 3 && win) {
-            randomNumber = (int) (Math.random() * 100);
+            randomNumber = new SecureRandom().nextInt(Integer.MAX_VALUE - 1);
             System.out.println(question + randomNumber);
             userAnswer = sc.nextLine();
             if (isEven(randomNumber)) {
@@ -67,7 +68,8 @@ public class IsEven {
 
     private void printLoserString(String userInpuString, String correctAnswer) {
         loserMessage.insert(0, "\'" + userInpuString + "\'")
-                .append(correctAnswer)
+                .append(" is wrong answer ;(. Correct answer was ")
+                .append("\'" + correctAnswer + "\'")
                 .append('.')
                 .append("\n")
                 .append("Let's try again, ")
