@@ -1,4 +1,4 @@
-package hexlet.code;
+package hexlet.code.games;
 
 import java.util.Scanner;
 import java.security.SecureRandom;
@@ -13,7 +13,7 @@ public class Even {
     private boolean win;
     private int score;
 
-    Even() {
+    public Even() {
         this.greeting = "Answer 'yes' if the number is even, otherwise answer 'no'.";
         this.question = "Question: ";
         this.loserMessage = new StringBuilder();

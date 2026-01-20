@@ -2,6 +2,8 @@ package hexlet.code;
 
 import java.util.Scanner;
 
+import hexlet.code.games.Even;
+
 /**
  * Основной класс приложения Brain Games.
  *
