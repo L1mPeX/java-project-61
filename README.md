@@ -37,7 +37,7 @@ Or you can do this:
 
 ## Demo
 
-Insert gif or link to demo
+[![asciicast](https://asciinema.org/a/9U38cRzzVoT2hbqB.svg)](https://asciinema.org/a/9U38cRzzVoT2hbqB)
 
 ## Authors
 
