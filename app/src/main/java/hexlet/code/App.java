@@ -16,6 +16,7 @@ public final class App {
      *
      * @param args аргументы командной строки
      */
+    @SuppressWarnings("java:S106")
     public static void main(final String[] args) {
         System.out.print("""
                 Please enter the game number and press Enter.

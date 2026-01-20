@@ -24,6 +24,7 @@ public class IsEven {
         this.win = true;
     }
 
+    @SuppressWarnings("java:S106")
     public void playGame() {
         int randomNumber;
         printGreetingString();
@@ -56,16 +57,19 @@ public class IsEven {
         return number % 2 == 0;
     }
 
+    @SuppressWarnings("java:S106")
     private void printGreetingString() {
         System.out.println(greeting);
     }
 
+    @SuppressWarnings("java:S106")
     private void printWinnerString() {
         winnerMessage.insert(0, "Congratulations, ")
                 .append(name);
         System.out.println(winnerMessage.toString());
     }
 
+    @SuppressWarnings("java:S106")
     private void printLoserString(String userInpuString, String correctAnswer) {
         loserMessage.insert(0, "\'" + userInpuString + "\'")
                 .append(" is wrong answer ;(. Correct answer was ")
@@ -77,11 +81,13 @@ public class IsEven {
         System.out.println(loserMessage.toString());
     }
 
+    @SuppressWarnings("java:S106")
     public void greet() {
         System.out.println("Welcome to the Brain Games!");
         System.out.print("May I have your name? ");
         Scanner scanner = new Scanner(System.in);
         this.name = scanner.nextLine();
+        scanner.close();
         System.out.println("Hello, " + name + "!");
     }
 
