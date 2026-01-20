@@ -5,7 +5,6 @@ import java.security.SecureRandom;
 
 public class IsEven {
     private String greeting;
-    private String userAnswer;
     private String name;
     private String question;
     private StringBuilder loserMessage;
@@ -26,6 +25,7 @@ public class IsEven {
 
     @SuppressWarnings("java:S106")
     public void playGame() {
+        String userAnswer;
         int randomNumber;
         printGreetingString();
         while (score != 3 && win) {
