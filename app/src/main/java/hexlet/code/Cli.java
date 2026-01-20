@@ -14,11 +14,13 @@ public final class Cli {
     /**
      * Приветствует пользователя.
      */
+    @SuppressWarnings("java:S106")
     public static void greet() {
         System.out.println("Welcome to the Brain Games!");
         System.out.print("May I have your name? ");
         Scanner scanner = new Scanner(System.in);
         String name = scanner.nextLine();
+        scanner.close();
         System.out.println("Hello, " + name + "!");
     }
 }
