@@ -3,7 +3,7 @@ package hexlet.code;
 import java.util.Scanner;
 import java.security.SecureRandom;
 
-public class IsEven {
+public class Even {
     private String greeting;
     private String name;
     private String question;
@@ -13,7 +13,7 @@ public class IsEven {
     private boolean win;
     private int score;
 
-    IsEven() {
+    Even() {
         this.greeting = "Answer 'yes' if the number is even, otherwise answer 'no'.";
         this.question = "Question: ";
         this.loserMessage = new StringBuilder();
