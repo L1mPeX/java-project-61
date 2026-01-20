@@ -28,7 +28,7 @@ public final class App {
             String choice = scanner.nextLine();
             switch (choice) {
                 case "2" -> {
-                    IsEven game = new IsEven();
+                    Even game = new Even();
                     game.greet();
                     game.playGame();
                 }
