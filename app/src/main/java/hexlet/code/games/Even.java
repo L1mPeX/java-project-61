@@ -13,6 +13,9 @@ public class Even {
     private boolean win;
     private int score;
 
+    /**
+     * Конструктор класса
+    */
     public Even() {
         this.greeting = "Answer 'yes' if the number is even, otherwise answer 'no'.";
         this.question = "Question: ";
@@ -23,6 +26,9 @@ public class Even {
         this.win = true;
     }
 
+    /**
+     * Метод, который отвечает за основную логику игры
+    */
     @SuppressWarnings("java:S106")
     public void playGame() {
         String userAnswer;
@@ -53,6 +59,11 @@ public class Even {
         }
     }
 
+    /**
+     * Метод, который возвращает boolean является ли число четным
+     * 
+     * @return boolean
+    */
     private boolean isEven(int number) {
         return number % 2 == 0;
     }
