@@ -25,7 +25,7 @@ public class GCD extends Games{
         do {
             firstVal = generateRandomInt();
             secondVal = generateRandomInt();
-            printQuestion(firstVal + " " + secondVal);
+            printQuestion(firstVal, secondVal);
             userAnswerString = askUserInput();
             correctAnswerString = String.valueOf(calcGCD(firstVal, secondVal));
             if (userAnswerString.equals(correctAnswerString)) {

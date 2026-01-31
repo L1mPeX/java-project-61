@@ -49,6 +49,7 @@ public class Games {
         this.userNameString = userNameString;
         this.loserMessage = new StringBuilder();
         this.winnerMessage = new StringBuilder();
+        this.randomGenerator = new SecureRandom();
     }
 
     /**
@@ -184,5 +185,13 @@ public class Games {
     @SuppressWarnings("java:S106")
     protected void printQuestion(int gameQuestionInt) {
         System.out.println(questionString + gameQuestionInt);
+    }
+
+    /**
+     * Метод печатающий полный вопрос игроку
+     */
+    @SuppressWarnings("java:S106")
+    protected void printQuestion(int gameQuestionFirstInt, int gameQuestionSecondInt) {
+        System.out.println(questionString + gameQuestionFirstInt + " " + gameQuestionSecondInt);
     }
 }
