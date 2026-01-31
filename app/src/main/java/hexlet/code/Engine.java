@@ -33,7 +33,7 @@ public class Engine {
             }
             else if (choice.equals("1")) {
                 Cli game = new Cli(scanner);
-                game.playGame();
+                game.greet();
             }
             else if (choice.equals("0")) {
                 System.out.println("Goodbye!");
