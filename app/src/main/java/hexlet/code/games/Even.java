@@ -17,7 +17,8 @@ public class Even extends Games {
     @Override
     @SuppressWarnings("java:S106")
     public void playGame() {
-        System.out.println("Hello, " + userNameString + "!");
+        Cli greetUser = new Cli(sc, userNameString);
+        greetUser.greet();
 
         gameDescriptionString = "Answer 'yes' if the number is even, otherwise answer 'no'.";
         printGameDescriptionString();
@@ -26,7 +27,7 @@ public class Even extends Games {
         do {
             firstVal = generateRandomInt();
             printQuestion(firstVal);
-            userAnswerString = askdUserInput();
+            userAnswerString = askUserInput();
             correctAnswerString = isEven(firstVal) ? "yes" : "no";
             if (userAnswerString.equals(correctAnswerString)) {
                 score++;

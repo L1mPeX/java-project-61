@@ -36,6 +36,20 @@ public class Games {
     }
 
     /**
+     * Конструктор класса 
+     */
+    protected Games(Scanner sc, String userNameString) {
+        this.sc = sc;
+        this.score = 0;
+        this.win = true;
+        this.questionString = "Question: ";
+        this.answerPromptString = "Your answer: ";
+        this.userNameString = userNameString;
+        this.loserMessage = new StringBuilder();
+        this.winnerMessage = new StringBuilder();
+    }
+
+    /**
      * Метод, который содержит логику игры
      */
     @SuppressWarnings("java:S1186")
@@ -74,7 +88,7 @@ public class Games {
      * @return ввод пользователя
      */
     @SuppressWarnings("java:S106")
-    protected String askdUserInput() {
+    protected String askUserInput() {
         System.out.print(answerPromptString);
         return sc.nextLine();
     }
@@ -107,7 +121,8 @@ public class Games {
      */
     protected String generateWinnerString() {
         winnerMessage.insert(0, "Congratulations, ")
-                .append(userNameString).append("!");
+                .append(userNameString)
+                .append("!");
         return winnerMessage.toString();
     }
 
@@ -124,7 +139,8 @@ public class Games {
                 .append('.')
                 .append("\n")
                 .append("Let's try again, ")
-                .append(userNameString);
+                .append(userNameString)
+                .append("!");
         return loserMessage.toString();
     }
 

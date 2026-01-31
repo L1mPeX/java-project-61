@@ -16,8 +16,7 @@ public class Calc extends Games {
     @SuppressWarnings("java:S106")
     @Override
     public void playGame() {
-        System.out.println("Hello, " + userNameString + "!");
-
-        
+        Cli greetUser = new Cli(sc);
+        greetUser.greet();
     }
 }

@@ -3,7 +3,7 @@ package hexlet.code.games;
 import java.util.Scanner;
 
 /**
- * Класс для взаимодействия с пользователем через командную строку.
+ * Класс для приветствия пользователя через командную строку.
  * @author l1mpex
  */
 public class Cli extends Games {
@@ -11,12 +11,15 @@ public class Cli extends Games {
         super(sc);
     }
 
+    public Cli(Scanner sc, String userNameString) {
+        super(sc, userNameString);
+    }
+
     /**
      * Метод, который содержит логику игры
      */
     @SuppressWarnings("java:S106")
-    @Override
-    public void playGame() {
+    public void greet() {
         System.out.println("Hello, " + userNameString + "!");
     }
 }

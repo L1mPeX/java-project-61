@@ -14,14 +14,15 @@ public class Engine {
     @SuppressWarnings("java:S106")
     public void pickGame() {
         System.out.print("""
-                Please enter the game number and press Enter.
-                1 - Greet
-                2 - Even
-                3 - Calc
-                0 - Exit
-                Your choice: """);
+        Please enter the game number and press Enter.
+        1 - Greet
+        2 - Even
+        3 - Calc
+        0 - Exit
+        Your choice: """ + " ");
         try (Scanner scanner = new Scanner(System.in)) {
             String choice = scanner.nextLine();
+
             if (choice.equals("3")) {
                 Calc game = new Calc(scanner);
                 game.playGame();
