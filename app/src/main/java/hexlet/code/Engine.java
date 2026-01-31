@@ -18,12 +18,17 @@ public class Engine {
         1 - Greet
         2 - Even
         3 - Calc
+        4 - GCD
         0 - Exit
         Your choice: """ + " ");
         try (Scanner scanner = new Scanner(System.in)) {
             String choice = scanner.nextLine();
 
-            if (choice.equals("3")) {
+            if (choice.equals("4")) {
+                GCD game = new GCD(scanner);
+                game.playGame();
+            }
+            else if (choice.equals("3")) {
                 Calc game = new Calc(scanner);
                 game.playGame();
             }
