@@ -60,7 +60,7 @@ public class Games {
      * @return случайное целое число [0, Integer.MAX_VALUE]
      */
     protected int generateRandomInt() {
-        return new SecureRandom().nextInt(Integer.MAX_VALUE - 1);
+        return generateRandomInt(Integer.MAX_VALUE - 1);
     }
 
     /**
