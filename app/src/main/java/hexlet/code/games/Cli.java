@@ -3,10 +3,11 @@ package hexlet.code.games;
 import java.util.Scanner;
 
 /**
- * @author L1mPeX
+ * Класс для взаимодействия с пользователем через командную строку.
+ * @author l1mpex
  */
-public class Calc extends Games {
-    public Calc(Scanner sc) {
+public class Cli extends Games {
+    public Cli(Scanner sc) {
         super(sc);
     }
 
@@ -17,7 +18,5 @@ public class Calc extends Games {
     @Override
     public void playGame() {
         System.out.println("Hello, " + userNameString + "!");
-
-        
     }
 }

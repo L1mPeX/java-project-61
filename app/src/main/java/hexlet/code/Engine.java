@@ -1,25 +1,45 @@
 package hexlet.code;
 
 import java.util.Scanner;
+import hexlet.code.games.*;
 
 public class Engine {
-    private String userName;
 
     /**
      * Конструктор класса
      */
-    public Engine () {
-        this.userName = askUserName();
+    Engine () {
     }
 
-    /**
-     * Метод, который запрашивает имя пользователя
-     * 
-     * @return String 
-    */
-    private String askUserName() {
-        try (Scanner sc = new Scanner(System.in)) {
-            return sc.nextLine();
+    @SuppressWarnings("java:S106")
+    public void pickGame() {
+        System.out.print("""
+                Please enter the game number and press Enter.
+                1 - Greet
+                2 - Even
+                3 - Calc
+                0 - Exit
+                Your choice: """);
+        try (Scanner scanner = new Scanner(System.in)) {
+            String choice = scanner.nextLine();
+            if (choice.equals("3")) {
+                Calc game = new Calc(scanner);
+                game.playGame();
+            }
+            else if (choice.equals("2")) {
+                Even game = new Even(scanner);
+                game.playGame();
+            }
+            else if (choice.equals("1")) {
+                Cli game = new Cli(scanner);
+                game.playGame();
+            }
+            else if (choice.equals("0")) {
+                System.out.println("Goodbye!");
+            }
+            else {
+                System.out.println("Unknown choice: " + choice);
+            }
         }
     }
 }
