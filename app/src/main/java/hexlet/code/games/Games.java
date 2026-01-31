@@ -9,6 +9,7 @@ import java.util.Scanner;
  * @author L1mPeX
  */
 public class Games {
+    protected SecureRandom randomGenerator;
     protected String gameDescriptionString;
     protected String userNameString;
     protected String questionString;
@@ -33,6 +34,7 @@ public class Games {
         this.userNameString = askUserName(sc);
         this.loserMessage = new StringBuilder();
         this.winnerMessage = new StringBuilder();
+        this.randomGenerator = new SecureRandom();
     }
 
     /**
@@ -69,7 +71,7 @@ public class Games {
      * @return случайное целое число [0, maxInt]
      */
     protected int generateRandomInt(int maxInt) {
-        return new SecureRandom().nextInt(maxInt);
+        return randomGenerator.nextInt(maxInt);
     }
 
     /**
