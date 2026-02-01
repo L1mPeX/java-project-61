@@ -3,22 +3,30 @@ package hexlet.code.games;
 import java.util.Scanner;
 
 /**
- * Класс для игры в Calc
+ * Класс для игры в Calc.
  * @author L1mPeX
  */
 public class Calc extends Games {
-    public Calc(Scanner sc) {
+    /** Количество очков для победы. */
+    private static final int WIN_SCORE = 3;
+
+    /**
+     * Конструктор класса.
+     * @param sc Сканнер для ввода данных.
+     */
+    public Calc(final Scanner sc) {
         super(sc);
     }
 
     /**
-     * Вычисление значения выражения
+     * Вычисление значения выражения.
      * @param firstVal первое целое число
      * @param secondVal второе целое число
      * @param operator строковое представление оператора
      * @return результат выражения
      */
-    private int calculateExpression(int firstVal, int secondVal, String operator) {
+    private int calculateExpression(final int firstVal, final int secondVal,
+                                    final String operator) {
         switch (operator) {
             case "+":
                 return firstVal + secondVal;
@@ -30,11 +38,11 @@ public class Calc extends Games {
     }
 
     /**
-     * Определение строкового представления оператора
+     * Определение строкового представления оператора.
      * @param operator числовое представление оператора
-     * @return строкове представление оператора
+     * @return строковое представление оператора
      */
-    private String defineOperator(int operator) {
+    private String defineOperator(final int operator) {
         switch (operator) {
             case 0:
                 return "+";
@@ -46,15 +54,15 @@ public class Calc extends Games {
     }
 
     /**
-     * Метод, который содержит логику игры
+     * Метод, который содержит логику игры.
      */
     @Override
     @SuppressWarnings("java:S106")
     public void playGame() {
-        Cli greetUser = new Cli(sc, userNameString);
+        Cli greetUser = new Cli(getScanner(), getUserName());
         greetUser.greet();
 
-        gameDescriptionString = "What is the result of the expression?";
+        setGameDescription("What is the result of the expression?");
         printGameDescriptionString();
 
         int firstVal;
@@ -65,19 +73,20 @@ public class Calc extends Games {
             secondVal = generateRandomInt(Integer.MAX_VALUE / 2 - 1);
             operatorString = defineOperator(generateRandomInt(2));
             printQuestion(firstVal, operatorString, secondVal);
-            userAnswerString = askUserInput();
-            correctAnswerString = String.valueOf(calculateExpression(firstVal, secondVal, operatorString));
-            if (userAnswerString.equals(correctAnswerString)) {
-                score++;
+            setUserAnswer(askUserInput());
+            setCorrectAnswer(String.valueOf(calculateExpression(
+                firstVal, secondVal, operatorString)));
+            if (getUserAnswer().equals(getCorrectAnswer())) {
+                incrementScore();
                 System.out.println("Correct!");
             }
         }
-        while (!checkWin(score) && !checkLose(userAnswerString, correctAnswerString));
+        while (!checkWin(getScore())
+                && !checkLose(getUserAnswer(), getCorrectAnswer()));
 
-        if (score == 3) {
+        if (getScore() == WIN_SCORE) {
             printWinnerString();
-        }
-        else {
+        } else {
             printLoserString();
         }
     }

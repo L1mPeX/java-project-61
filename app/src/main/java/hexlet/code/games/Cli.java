@@ -7,19 +7,28 @@ import java.util.Scanner;
  * @author l1mpex
  */
 public class Cli extends Games {
-    public Cli(Scanner sc) {
+    /**
+     * Конструктор класса.
+     * @param sc Сканнер для ввода данных.
+     */
+    public Cli(final Scanner sc) {
         super(sc);
     }
 
-    public Cli(Scanner sc, String userNameString) {
+    /**
+     * Конструктор класса.
+     * @param sc Сканнер для ввода данных.
+     * @param userNameString Имя пользователя.
+     */
+    public Cli(final Scanner sc, final String userNameString) {
         super(sc, userNameString);
     }
 
     /**
-     * Метод, который содержит логику игры
+     * Метод, который содержит логику игры.
      */
     @SuppressWarnings("java:S106")
     public void greet() {
-        System.out.println("Hello, " + userNameString + "!");
+        System.out.println("Hello, " + getUserName() + "!");
     }
 }

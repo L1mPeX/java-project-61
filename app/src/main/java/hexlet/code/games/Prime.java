@@ -3,55 +3,65 @@ package hexlet.code.games;
 import java.util.Scanner;
 
 /**
- * Класс для игры в Prime
+ * Класс для игры в Prime.
  * @author L1mPeX
  */
 public class Prime extends Games {
-    public Prime(Scanner sc) {
+    /** Количество очков для победы. */
+    private static final int WIN_SCORE = 3;
+
+    /**
+     * Конструктор класса.
+     * @param sc Сканнер для ввода данных.
+     */
+    public Prime(final Scanner sc) {
         super(sc);
     }
 
     /**
-     * Метод для определения просто ли число
+     * Метод для определения просто ли число.
      * @param firstVar число
      * @return простое ли число
      */
-    private boolean isPrime(int firstVar) {
+    private boolean isPrime(final int firstVar) {
         for (int i = 2; i < firstVar; i++) {
-            if (firstVar % i == 0) return false;
+            if (firstVar % i == 0) {
+                return false;
+            }
         }
         return true;
     }
 
     /**
-     * Метод, который содержит логику игры
+     * Метод, который содержит логику игры.
      */
     @Override
     @SuppressWarnings("java:S106")
     public void playGame() {
-        Cli greetUser = new Cli(sc, userNameString);
+        Cli greetUser = new Cli(getScanner(), getUserName());
         greetUser.greet();
 
-        gameDescriptionString = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
+        setGameDescription("Answer 'yes' if given number is prime. "
+            + "Otherwise answer 'no'.");
         printGameDescriptionString();
 
         int firstVal;
         do {
             firstVal = generateRandomInt(Integer.MAX_VALUE - 1);
             printQuestion(firstVal);
-            userAnswerString = askUserInput();
-            correctAnswerString = isPrime(firstVal) ? "yes" : "no";
-            if (userAnswerString.equals(correctAnswerString)) {
-                score++;
+            setUserAnswer(askUserInput());
+            setCorrectAnswer(isPrime(firstVal) ? "yes" : "no");
+            if (getUserAnswer().equals(getCorrectAnswer())) {
+                incrementScore();
                 System.out.println("Correct!");
             }
         }
-        while (!checkWin(score) && !checkLose(userAnswerString, correctAnswerString));
+        while (!checkWin(getScore())
+                && !checkLose(getUserAnswer(), getCorrectAnswer()));
 
-        if (score == 3) {
+        if (getScore() == WIN_SCORE) {
             printWinnerString();
-        }
-        else {
+        } else {
             printLoserString();
         }
     }

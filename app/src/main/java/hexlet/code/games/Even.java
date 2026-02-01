@@ -3,52 +3,60 @@ package hexlet.code.games;
 import java.util.Scanner;
 
 /**
- * Класс для игры в Even
+ * Класс для игры в Even.
  * @author L1mPeX
  */
 public class Even extends Games {
-    public Even(Scanner sc) {
+    /** Количество очков для победы. */
+    private static final int WIN_SCORE = 3;
+
+    /**
+     * Конструктор класса.
+     * @param sc Сканнер для ввода данных.
+     */
+    public Even(final Scanner sc) {
         super(sc);
     }
 
     /**
-     * Метод для определения четное ли число
+     * Метод для определения четное ли число.
      * @param val число
      * @return четное ли число
      */
-    private boolean isEven(int val) {
+    private boolean isEven(final int val) {
         return val % 2 == 0;
     }
 
     /**
-     * Метод, который содержит логику игры
+     * Метод, который содержит логику игры.
      */
     @Override
     @SuppressWarnings("java:S106")
     public void playGame() {
-        Cli greetUser = new Cli(sc, userNameString);
+        Cli greetUser = new Cli(getScanner(), getUserName());
         greetUser.greet();
 
-        gameDescriptionString = "Answer 'yes' if the number is even, otherwise answer 'no'.";
+        setGameDescription("Answer 'yes' if the number is even, "
+            + "otherwise answer 'no'.");
         printGameDescriptionString();
 
         int firstVal;
         do {
             firstVal = generateRandomInt();
             printQuestion(firstVal);
-            userAnswerString = askUserInput();
-            correctAnswerString = isEven(firstVal) ? "yes" : "no";
-            if (userAnswerString.equals(correctAnswerString)) {
-                score++;
+            setUserAnswer(askUserInput());
+            setCorrectAnswer(isEven(firstVal) ? "yes" : "no");
+            if (getUserAnswer().equals(getCorrectAnswer())) {
+                incrementScore();
                 System.out.println("Correct!");
             }
         }
-        while (!checkWin(score) && !checkLose(userAnswerString, correctAnswerString));
+        while (!checkWin(getScore())
+                && !checkLose(getUserAnswer(), getCorrectAnswer()));
 
-        if (score == 3) {
+        if (getScore() == WIN_SCORE) {
             printWinnerString();
-        }
-        else {
+        } else {
             printLoserString();
         }
     }
