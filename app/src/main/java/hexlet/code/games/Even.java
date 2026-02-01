@@ -12,6 +12,15 @@ public class Even extends Games {
     }
 
     /**
+     * Метод для определения четное ли число
+     * @param val число
+     * @return четное ли число
+     */
+    private boolean isEven(int val) {
+        return val % 2 == 0;
+    }
+
+    /**
      * Метод, который содержит логику игры
      */
     @Override
@@ -42,9 +51,5 @@ public class Even extends Games {
         else {
             printLoserString();
         }
-    }
-
-    private boolean isEven(int val) {
-        return val % 2 == 0;
     }
 }

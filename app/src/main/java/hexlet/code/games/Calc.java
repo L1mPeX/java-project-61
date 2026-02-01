@@ -10,6 +10,40 @@ public class Calc extends Games {
         super(sc);
     }
 
+        /**
+     * Вычисление значения выражения
+     * @param firstVal первое целое число
+     * @param secondVal второе целое число
+     * @param operator строковое представление оператора
+     * @return результат выражения
+     */
+    private int calculateExpression(int firstVal, int secondVal, String operator) {
+        switch (operator) {
+            case "+":
+                return firstVal + secondVal;
+            case "-":
+                return firstVal - secondVal;
+            default:
+                return firstVal * secondVal;
+        }
+    }
+
+    /**
+     * Определение строкового представления оператора
+     * @param operator числовое представление оператора
+     * @return строкове представление оператора
+     */
+    private String defineOperator(int operator) {
+        switch (operator) {
+            case 0:
+                return "+";
+            case 1:
+                return "-";
+            default:
+                return "*";
+        }
+    }
+
     /**
      * Метод, который содержит логику игры
      */
@@ -44,40 +78,6 @@ public class Calc extends Games {
         }
         else {
             printLoserString();
-        }
-    }
-
-    /**
-     * Вычисление значения выражения
-     * @param firstVal первое целое число
-     * @param secondVal второе целое число
-     * @param operator строковое представление оператора
-     * @return результат выражения
-     */
-    private int calculateExpression(int firstVal, int secondVal, String operator) {
-        switch (operator) {
-            case "+":
-                return firstVal + secondVal;
-            case "-":
-                return firstVal - secondVal;
-            default:
-                return firstVal * secondVal;
-        }
-    }
-
-    /**
-     * Определение строкового представления оператора
-     * @param operator числовое представление оператора
-     * @return строкове представление оператора
-     */
-    private String defineOperator(int operator) {
-        switch (operator) {
-            case 0:
-                return "+";
-            case 1:
-                return "-";
-            default:
-                return "*";
         }
     }
 }
