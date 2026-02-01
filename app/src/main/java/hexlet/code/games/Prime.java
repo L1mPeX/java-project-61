@@ -1,29 +1,26 @@
 package hexlet.code.games;
 
 import java.util.Scanner;
-import java.math.BigInteger;
 
 /**
- * Код для игры в GCD
+ * Класс для игры в Prime
  * @author L1mPeX
  */
-public class GCD extends Games{
-    public GCD(Scanner sc) {
+public class Prime extends Games {
+    public Prime(Scanner sc) {
         super(sc);
     }
 
     /**
-     * Метод для вычисления НОД
-     * @param firstVal число
-     * @param secondVal число
-     * @return НОД
+     * Метод для определения просто ли число
+     * @param firstVar число
+     * @return простое ли число
      */
-    private int calcGCD(int firstVal, int secondVal) {
-        BigInteger valA = BigInteger.valueOf(firstVal);
-        BigInteger valB = BigInteger.valueOf(secondVal);
-        BigInteger gcdVal = valA.gcd(valB);
-        
-        return gcdVal.intValue();
+    private boolean isPrime(int firstVar) {
+        for (int i = 2; i < firstVar; i++) {
+            if (firstVar % i == 0) return false;
+        }
+        return true;
     }
 
     /**
@@ -35,17 +32,15 @@ public class GCD extends Games{
         Cli greetUser = new Cli(sc, userNameString);
         greetUser.greet();
 
-        gameDescriptionString = "Find the greatest common divisor of given numbers.";
+        gameDescriptionString = "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
         printGameDescriptionString();
 
         int firstVal;
-        int secondVal;
         do {
-            firstVal = generateRandomInt();
-            secondVal = generateRandomInt();
-            printQuestion(firstVal, secondVal);
+            firstVal = generateRandomInt(Integer.MAX_VALUE - 1);
+            printQuestion(firstVal);
             userAnswerString = askUserInput();
-            correctAnswerString = String.valueOf(calcGCD(firstVal, secondVal));
+            correctAnswerString = isPrime(firstVal) ? "yes" : "no";
             if (userAnswerString.equals(correctAnswerString)) {
                 score++;
                 System.out.println("Correct!");

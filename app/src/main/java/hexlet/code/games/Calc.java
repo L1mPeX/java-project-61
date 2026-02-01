@@ -3,6 +3,7 @@ package hexlet.code.games;
 import java.util.Scanner;
 
 /**
+ * Класс для игры в Calc
  * @author L1mPeX
  */
 public class Calc extends Games {
@@ -10,7 +11,7 @@ public class Calc extends Games {
         super(sc);
     }
 
-        /**
+    /**
      * Вычисление значения выражения
      * @param firstVal первое целое число
      * @param secondVal второе целое число

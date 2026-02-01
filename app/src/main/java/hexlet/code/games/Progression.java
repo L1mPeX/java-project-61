@@ -42,6 +42,9 @@ public class Progression extends Games {
         return secretSequenceStringBuilder.toString();
     }
 
+    /**
+     * Метод, который содержит логику игры
+     */
     @Override
     @SuppressWarnings("java:S106")
     public void playGame() {

@@ -11,6 +11,9 @@ public class Engine {
     Engine () {
     }
 
+    /**
+     * Метод, который содержит логику выбора игры
+     */
     @SuppressWarnings("java:S106")
     public void pickGame() {
         System.out.print("""
@@ -20,12 +23,17 @@ public class Engine {
         3 - Calc
         4 - GCD
         5 - Progression
+        6 - Prime
         0 - Exit
         Your choice: """ + " ");
         try (Scanner scanner = new Scanner(System.in)) {
             String choice = scanner.nextLine();
 
-            if (choice.equals("5")) {
+            if (choice.equals("6")) {
+                Prime game = new Prime(scanner);
+                game.playGame();
+            }
+            else if (choice.equals("5")) {
                 Progression game = new Progression(scanner);
                 game.playGame();
             }
