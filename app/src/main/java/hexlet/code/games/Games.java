@@ -194,4 +194,12 @@ public class Games {
     protected void printQuestion(int gameQuestionFirstInt, int gameQuestionSecondInt) {
         System.out.println(questionString + gameQuestionFirstInt + " " + gameQuestionSecondInt);
     }
+
+    /**
+     * Метод печатающий полный вопрос игроку
+     */
+    @SuppressWarnings("java:S106")
+    protected void printQuestion(int gameQuestionFirstInt, String gameQuestionFirstString, int gameQuestionSecondInt) {
+        System.out.println(questionString + gameQuestionFirstInt + " " + gameQuestionFirstString + " " + gameQuestionSecondInt);
+    }
 }

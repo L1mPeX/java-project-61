@@ -64,7 +64,7 @@ public class Calc extends Games {
             firstVal = generateRandomInt(Integer.MAX_VALUE / 2 - 1);
             secondVal = generateRandomInt(Integer.MAX_VALUE / 2 - 1);
             operatorString = defineOperator(generateRandomInt(2));
-            printQuestion(firstVal + operatorString + secondVal);
+            printQuestion(firstVal, operatorString, secondVal);
             userAnswerString = askUserInput();
             correctAnswerString = String.valueOf(calculateExpression(firstVal, secondVal, operatorString));
             if (userAnswerString.equals(correctAnswerString)) {
