@@ -37,7 +37,7 @@ Or you can do this:
 
 ## Demo
 
-[![asciicast](https://asciinema.org/a/EF8sBlKWwVNzZQb2.svg)](https://asciinema.org/a/EF8sBlKWwVNzZQb2)
+[![asciicast](https://asciinema.org/a/jHhCzjsXuCvksODZ.svg)](https://asciinema.org/a/jHhCzjsXuCvksODZ)
 
 ## Authors
 
