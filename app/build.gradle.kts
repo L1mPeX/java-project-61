@@ -1,5 +1,4 @@
 plugins {
-    java
     application
     `checkstyle`
 }
@@ -11,16 +10,6 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
-
 application {
     mainClass.set("hexlet.code.App")
 }
@@ -30,7 +19,7 @@ tasks.getByName<JavaExec>("run") {
 }
 
 checkstyle {
-    toolVersion = "10.7.0"  // ← стабильная версия БЕЗ конфликтов Guava
+    toolVersion = "10.7.0"
     configFile = rootProject.file("config/checkstyle/checkstyle.xml")
     isIgnoreFailures = false
 }
