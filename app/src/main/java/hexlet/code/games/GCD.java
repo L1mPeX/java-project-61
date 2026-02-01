@@ -3,9 +3,21 @@ package hexlet.code.games;
 import java.util.Scanner;
 import java.math.BigInteger;
 
+/**
+ * Код для игры в GCD
+ * @author L1mPeX
+ */
 public class GCD extends Games{
     public GCD(Scanner sc) {
         super(sc);
+    }
+
+    private int calcGCD(int firstVal, int secondVal) {
+        BigInteger valA = BigInteger.valueOf(firstVal);
+        BigInteger valB = BigInteger.valueOf(secondVal);
+        BigInteger gcdVal = valA.gcd(valB);
+        
+        return gcdVal.intValue();
     }
 
     /**
@@ -41,13 +53,5 @@ public class GCD extends Games{
         else {
             printLoserString();
         }
-    }
-
-    private int calcGCD(int firstVal, int secondVal) {
-        BigInteger valA = BigInteger.valueOf(firstVal);
-        BigInteger valB = BigInteger.valueOf(secondVal);
-        BigInteger gcdVal = valA.gcd(valB);
-        
-        return gcdVal.intValue();
     }
 }
