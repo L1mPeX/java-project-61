@@ -33,7 +33,7 @@ public class Progression extends Games {
         StringBuilder secretSequenceStringBuilder = new StringBuilder();
         for (int i = 0; i < 10; i++) {
             if (i == secretIndex) {
-                secretSequenceStringBuilder.append("... ");
+                secretSequenceStringBuilder.append(".. ");
                 continue;
             }
             secretSequenceStringBuilder.append(sequence[i]).append(" ");
