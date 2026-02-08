@@ -84,11 +84,6 @@ public final class Progression extends BaseGame {
     }
 
     @Override
-    public String getRule() {
-        return RULE;
-    }
-
-    @Override
     public String[][] getQuestionsAndAnswers() {
         final String[][] questionsAndAnswers = new String[ROUNDS_COUNT][2];
 
@@ -97,5 +92,10 @@ public final class Progression extends BaseGame {
         }
 
         return questionsAndAnswers;
+    }
+
+    @Override
+    public String getRule() {
+        return RULE;
     }
 }
