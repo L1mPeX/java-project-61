@@ -1,68 +1,70 @@
 package hexlet.code.games;
 
-import java.util.Scanner;
-
 /**
- * Класс для игры в Prime.
- * @author L1mPeX
+ * Игра "Простое ли число?".
+ * Пользователю показывается число,
+ * нужно ответить "yes" если число простое, иначе "no".
  */
-public class Prime extends Games {
-    /** Количество очков для победы. */
-    private static final int WIN_SCORE = 3;
+public final class Prime extends BaseGame {
+    /** Правило игры. */
+    private static final String RULE =
+        "Answer 'yes' if given number is prime. Otherwise answer 'no'.";
+    /** Ответ для простого числа. */
+    private static final String PRIME_ANSWER = "yes";
+    /** Ответ для составного числа. */
+    private static final String NOT_PRIME_ANSWER = "no";
+    /** Минимальное значение для простых чисел. */
+    private static final int MIN_PRIME_NUMBER = 2;
 
     /**
-     * Конструктор класса.
-     * @param sc Сканнер для ввода данных.
+     * Проверяет, является ли число простым.
+     *
+     * @param number число для проверки
+     * @return true если число простое, false если составное
      */
-    public Prime(final Scanner sc) {
-        super(sc);
-    }
+    private boolean isPrime(final int number) {
+        if (number < MIN_PRIME_NUMBER) {
+            return false;
+        }
 
-    /**
-     * Метод для определения просто ли число.
-     * @param firstVar число
-     * @return простое ли число
-     */
-    private boolean isPrime(final int firstVar) {
-        for (int i = 2; i < firstVar; i++) {
-            if (firstVar % i == 0) {
+        for (int i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) {
                 return false;
             }
         }
+
         return true;
     }
 
     /**
-     * Метод, который содержит логику игры.
+     * Генерирует пару вопрос-ответ для одного раунда.
+     *
+     * @return массив [вопрос, правильный ответ]
      */
+    private String[] generateQuestionAnswerPair() {
+        final int number = generateRandomNumber();
+        final String question = Integer.toString(number);
+
+        final String correctAnswer = isPrime(number)
+            ? PRIME_ANSWER
+            : NOT_PRIME_ANSWER;
+
+        return new String[]{question, correctAnswer};
+    }
+
     @Override
-    @SuppressWarnings("java:S106")
-    public void playGame() {
-        Cli greetUser = new Cli(getScanner(), getUserName());
-        greetUser.greet();
+    public String getRule() {
+        return RULE;
+    }
 
-        setGameDescription("Answer 'yes' if given number is prime. "
-            + "Otherwise answer 'no'.");
-        printGameDescriptionString();
+    @Override
+    public String[][] getQuestionsAndAnswers() {
+        final String[][] questionsAndAnswers = new String[ROUNDS_COUNT][2];
 
-        int firstVal;
-        do {
-            firstVal = generateRandomInt(Integer.MAX_VALUE - 1);
-            printQuestion(firstVal);
-            setUserAnswer(askUserInput());
-            setCorrectAnswer(isPrime(firstVal) ? "yes" : "no");
-            if (getUserAnswer().equals(getCorrectAnswer())) {
-                incrementScore();
-                System.out.println("Correct!");
-            }
+        for (int i = 0; i < ROUNDS_COUNT; i++) {
+            questionsAndAnswers[i] = generateQuestionAnswerPair();
         }
-        while (!checkWin(getScore())
-                && !checkLose(getUserAnswer(), getCorrectAnswer()));
 
-        if (getScore() == WIN_SCORE) {
-            printWinnerString();
-        } else {
-            printLoserString();
-        }
+        return questionsAndAnswers;
     }
 }

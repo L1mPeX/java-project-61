@@ -1,63 +1,55 @@
 package hexlet.code.games;
 
-import java.util.Scanner;
-
 /**
- * Класс для игры в Even.
- * @author L1mPeX
+ * Игра "Проверка на чётность".
+ * Пользователю показывается число, нужно ответить "yes" если число чётное,
+ * иначе "no".
  */
-public class Even extends Games {
-    /** Количество очков для победы. */
-    private static final int WIN_SCORE = 3;
+public final class Even extends BaseGame {
+    /** Правило игры. */
+    private static final String RULE =
+        "Answer 'yes' if the number is even, otherwise answer 'no'.";
+    /** Ответ для чётного числа. */
+    private static final String EVEN_ANSWER = "yes";
+    /** Ответ для нечётного числа. */
+    private static final String ODD_ANSWER = "no";
 
     /**
-     * Конструктор класса.
-     * @param sc Сканнер для ввода данных.
+     * Проверяет, является ли число чётным.
+     *
+     * @param number число для проверки
+     * @return true если число чётное, false если нечётное
      */
-    public Even(final Scanner sc) {
-        super(sc);
+    private boolean isEven(final int number) {
+        return number % 2 == 0;
     }
 
     /**
-     * Метод для определения четное ли число.
-     * @param val число
-     * @return четное ли число
+     * Генерирует пару вопрос-ответ для одного раунда.
+     *
+     * @return массив [вопрос, правильный ответ]
      */
-    private boolean isEven(final int val) {
-        return val % 2 == 0;
+    private String[] generateQuestionAnswerPair() {
+        final int number = generateRandomNumber();
+        final String question = Integer.toString(number);
+        final String correctAnswer = isEven(number) ? EVEN_ANSWER : ODD_ANSWER;
+
+        return new String[]{question, correctAnswer};
     }
 
-    /**
-     * Метод, который содержит логику игры.
-     */
     @Override
-    @SuppressWarnings("java:S106")
-    public void playGame() {
-        Cli greetUser = new Cli(getScanner(), getUserName());
-        greetUser.greet();
+    public String getRule() {
+        return RULE;
+    }
 
-        setGameDescription("Answer 'yes' if the number is even, "
-            + "otherwise answer 'no'.");
-        printGameDescriptionString();
+    @Override
+    public String[][] getQuestionsAndAnswers() {
+        final String[][] questionsAndAnswers = new String[ROUNDS_COUNT][2];
 
-        int firstVal;
-        do {
-            firstVal = generateRandomInt();
-            printQuestion(firstVal);
-            setUserAnswer(askUserInput());
-            setCorrectAnswer(isEven(firstVal) ? "yes" : "no");
-            if (getUserAnswer().equals(getCorrectAnswer())) {
-                incrementScore();
-                System.out.println("Correct!");
-            }
+        for (int i = 0; i < ROUNDS_COUNT; i++) {
+            questionsAndAnswers[i] = generateQuestionAnswerPair();
         }
-        while (!checkWin(getScore())
-                && !checkLose(getUserAnswer(), getCorrectAnswer()));
 
-        if (getScore() == WIN_SCORE) {
-            printWinnerString();
-        } else {
-            printLoserString();
-        }
+        return questionsAndAnswers;
     }
 }
