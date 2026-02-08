@@ -1,6 +1,4 @@
 /**
- * Содержит основные классы для игр приложения Brain Games.
- *
- * @author l1mpex
+ * Пакет, содержащий реализации различных игр для Brain Games.
  */
 package hexlet.code.games;

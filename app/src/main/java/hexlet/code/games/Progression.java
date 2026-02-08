@@ -1,97 +1,101 @@
 package hexlet.code.games;
 
-import java.util.Scanner;
-
 /**
- * Класс для игры в Progression.
- * @author L1mPeX
+ * Игра "Арифметическая прогрессия".
+ * Пользователю показывается прогрессия с пропущенным элементом,
+ * нужно определить этот элемент.
  */
-public class Progression extends Games {
+public final class Progression extends BaseGame {
+    /** Правило игры. */
+    private static final String RULE =
+        "What number is missing in the progression?";
     /** Длина прогрессии. */
     private static final int PROGRESSION_LENGTH = 10;
-    /** Максимальный шаг прогрессии. */
-    private static final int MAX_STEP = 1000;
-    /** Количество очков для победы. */
-    private static final int WIN_SCORE = 3;
+    /** Минимальное значение первого элемента. */
+    private static final int FIRST_ELEMENT_MIN = 1;
+    /** Максимальное значение первого элемента. */
+    private static final int FIRST_ELEMENT_MAX = 10;
+    /** Минимальное значение шага прогрессии. */
+    private static final int STEP_MIN = 2;
+    /** Максимальное значение шага прогрессии. */
+    private static final int STEP_MAX = 5;
 
     /**
-     * Конструктор класса.
-     * @param sc Сканнер для ввода данных.
+     * Генерирует арифметическую прогрессию.
+     *
+     * @param firstElement первый элемент прогрессии
+     * @param step шаг прогрессии
+     * @return массив элементов прогрессии
      */
-    public Progression(final Scanner sc) {
-        super(sc);
-    }
+    private int[] generateProgression(final int firstElement,
+                                      final int step) {
+        final int[] progression = new int[PROGRESSION_LENGTH];
 
-    /**
-     * Метод для создания последовательности.
-     * @return последовательность
-     */
-    private int[] generateSequence() {
-        int step = generateRandomInt(MAX_STEP);
-        int firstElement = generateRandomInt(Integer.MAX_VALUE
-                - (step * PROGRESSION_LENGTH) - 1);
-        int[] sequence = {firstElement, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-
-        for (int i = 1; i < PROGRESSION_LENGTH; i++) {
-            sequence[i] = sequence[i - 1] + step;
-        }
-
-        return sequence;
-    }
-
-    /**
-     * Метод для вывода последовательности без случайного элемента.
-     * @param sequence последовательность
-     * @param secretIndex индекс скрытого элемента
-     * @return последовательность со скрытым элементом
-     */
-    private String maskSequence(final int[] sequence, final int secretIndex) {
-        StringBuilder secretSequenceStringBuilder = new StringBuilder();
         for (int i = 0; i < PROGRESSION_LENGTH; i++) {
-            if (i == secretIndex) {
-                secretSequenceStringBuilder.append(".. ");
-                continue;
-            }
-            secretSequenceStringBuilder.append(sequence[i]).append(" ");
+            progression[i] = firstElement + step * i;
         }
-
-        return secretSequenceStringBuilder.toString();
+        return progression;
     }
 
     /**
-     * Метод, который содержит логику игры.
+     * Форматирует прогрессию со скрытым элементом.
+     *
+     * @param progression массив прогрессии
+     * @param hiddenIndex индекс скрытого элемента
+     * @return строковое представление прогрессии
      */
-    @Override
-    @SuppressWarnings("java:S106")
-    public void playGame() {
-        Cli greetUser = new Cli(getScanner(), getUserName());
-        greetUser.greet();
+    private String formatProgression(final int[] progression,
+                                     final int hiddenIndex) {
+        final StringBuilder builder = new StringBuilder();
 
-        setGameDescription("What number is missing in the progression?");
-        printGameDescriptionString();
+        for (int i = 0; i < progression.length; i++) {
+            if (i == hiddenIndex) {
+                builder.append("..");
+            } else {
+                builder.append(progression[i]);
+            }
 
-        int[] sequence;
-        int secretIndex;
-        String correctAnswerString;
-        do {
-            sequence = generateSequence();
-            secretIndex = generateRandomInt(PROGRESSION_LENGTH);
-            printQuestion(maskSequence(sequence, secretIndex));
-            setUserAnswer(askUserInput());
-            correctAnswerString = String.valueOf(sequence[secretIndex]);
-            setCorrectAnswer(correctAnswerString);
-            if (getUserAnswer().equals(getCorrectAnswer())) {
-                incrementScore();
-                System.out.println("Correct!");
+            if (i < progression.length - 1) {
+                builder.append(" ");
             }
         }
-        while (!checkWin(getScore())
-                && !checkLose(getUserAnswer(), getCorrectAnswer()));
+        return builder.toString();
+    }
 
-        if (getScore() == WIN_SCORE) {
-            printWinnerString();
-        } else {
-            printLoserString();
+    /**
+     * Генерирует пару вопрос-ответ для одного раунда.
+     *
+     * @return массив [вопрос, правильный ответ]
+     */
+    private String[] generateQuestionAnswerPair() {
+        final int firstElement = generateRandomNumber(
+            FIRST_ELEMENT_MIN, FIRST_ELEMENT_MAX
+        );
+
+        final int step = generateRandomNumber(STEP_MIN, STEP_MAX);
+        final int[] progression = generateProgression(firstElement, step);
+
+        final int hiddenIndex = RANDOM.nextInt(PROGRESSION_LENGTH);
+        final String question = formatProgression(progression, hiddenIndex);
+
+        final int correctAnswer = progression[hiddenIndex];
+
+        return new String[]{question, Integer.toString(correctAnswer)};
+    }
+
+    @Override
+    public String[][] getQuestionsAndAnswers() {
+        final String[][] questionsAndAnswers = new String[ROUNDS_COUNT][2];
+
+        for (int i = 0; i < ROUNDS_COUNT; i++) {
+            questionsAndAnswers[i] = generateQuestionAnswerPair();
         }
+
+        return questionsAndAnswers;
+    }
+
+    @Override
+    public String getRule() {
+        return RULE;
     }
 }

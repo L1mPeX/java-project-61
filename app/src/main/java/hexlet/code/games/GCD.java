@@ -1,71 +1,65 @@
 package hexlet.code.games;
 
-import java.util.Scanner;
-import java.math.BigInteger;
-
 /**
- * Код для игры в GCD.
- * @author L1mPeX
+ * Игра "Наибольший общий делитель".
+ * Пользователю показывается два числа,
+ * нужно найти их наибольший общий делитель.
  */
-public class GCD extends Games {
-    /** Количество очков для победы. */
-    private static final int WIN_SCORE = 3;
+public final class GCD extends BaseGame {
+    /** Правило игры. */
+    private static final String RULE =
+        "Find the greatest common divisor of given numbers.";
 
     /**
-     * Конструктор класса.
-     * @param sc Сканнер для ввода данных.
+     * Вычисляет наибольший общий делитель двух чисел.
+     *
+     * @param a первое число
+     * @param b второе число
+     * @return наибольший общий делитель
      */
-    public GCD(final Scanner sc) {
-        super(sc);
+    private int calculateGcd(final int a, final int b) {
+        int tempA = a;
+        int tempB = b;
+
+        while (tempB != 0) {
+            final int temp = tempB;
+            tempB = tempA % tempB;
+            tempA = temp;
+        }
+
+        return Math.abs(tempA);
     }
 
     /**
-     * Метод для вычисления НОД.
-     * @param firstVal число
-     * @param secondVal число
-     * @return НОД
+     * Генерирует пару вопрос-ответ для одного раунда.
+     *
+     * @return массив [вопрос, правильный ответ]
      */
-    private int calcGCD(final int firstVal, final int secondVal) {
-        BigInteger valA = BigInteger.valueOf(firstVal);
-        BigInteger valB = BigInteger.valueOf(secondVal);
-        BigInteger gcdVal = valA.gcd(valB);
+    private String[] generateQuestionAnswerPair() {
+        final int firstNumber = generateRandomNumber();
+        final int secondNumber = generateRandomNumber();
+        final int gcd = calculateGcd(firstNumber, secondNumber);
 
-        return gcdVal.intValue();
+        final String question = String.format(
+            "%d %d", firstNumber, secondNumber
+        );
+
+        return new String[]{question, Integer.toString(gcd)};
     }
 
-    /**
-     * Метод, который содержит логику игры.
-     */
     @Override
-    @SuppressWarnings("java:S106")
-    public void playGame() {
-        Cli greetUser = new Cli(getScanner(), getUserName());
-        greetUser.greet();
+    public String getRule() {
+        return RULE;
+    }
 
-        setGameDescription("Find the greatest common divisor"
-                + " of given numbers.");
-        printGameDescriptionString();
+    @Override
+    public String[][] getQuestionsAndAnswers() {
+        final String[][] questionsAndAnswers = new String[ROUNDS_COUNT][2];
 
-        int firstVal;
-        int secondVal;
-        do {
-            firstVal = generateRandomInt();
-            secondVal = generateRandomInt();
-            printQuestion(firstVal, secondVal);
-            setUserAnswer(askUserInput());
-            setCorrectAnswer(String.valueOf(calcGCD(firstVal, secondVal)));
-            if (getUserAnswer().equals(getCorrectAnswer())) {
-                incrementScore();
-                System.out.println("Correct!");
-            }
+        for (int i = 0; i < ROUNDS_COUNT; i++) {
+            questionsAndAnswers[i] = generateQuestionAnswerPair();
         }
-        while (!checkWin(getScore())
-                && !checkLose(getUserAnswer(), getCorrectAnswer()));
 
-        if (getScore() == WIN_SCORE) {
-            printWinnerString();
-        } else {
-            printLoserString();
-        }
+        return questionsAndAnswers;
     }
 }

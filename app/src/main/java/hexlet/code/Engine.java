@@ -1,61 +1,130 @@
 package hexlet.code;
 
 import java.util.Scanner;
-import hexlet.code.games.Calc;
-import hexlet.code.games.Cli;
-import hexlet.code.games.Even;
-import hexlet.code.games.GCD;
-import hexlet.code.games.Prime;
-import hexlet.code.games.Progression;
 
+/**
+ * Движок для запуска игр.
+ * Отвечает за взаимодействие с пользователем и проверку ответов.
+ * Не знает о конкретных играх, работает только с интерфейсом Game.
+ */
 public class Engine {
+    /** Приветственное сообщение. */
+    private static final String WELCOME_MESSAGE = "Welcome to the Brain Games!";
+    /** Формат сообщения приветствия. */
+    private static final String GREETING_FORMAT = "Hello, %s!";
+    /** Сообщение о правильном ответе. */
+    private static final String CORRECT_ANSWER_MESSAGE = "Correct!";
+    /** Формат сообщения при ошибке. */
+    private static final String WRONG_ANSWER_FORMAT =
+        "'%s' is wrong answer ;(. Correct answer was '%s'.";
+    /** Формат сообщения при победе. */
+    private static final String WIN_FORMAT = "Congratulations, %s!";
+    /** Формат сообщения при проигрыше. */
+    private static final String LOSE_FORMAT = "Let's try again, %s!";
+    /** Запрос имени пользователя. */
+    private static final String NAME_REQUEST = "May I have your name? ";
+    /** Запрос ответа пользователя. */
+    private static final String ANSWER_REQUEST = "Your answer: ";
+    /** Формат вопроса. */
+    private static final String QUESTION_FORMAT = "Question: %s";
+
     /**
-     * Конструктор класса.
+     * Запрашивает имя пользователя и приветствует его.
+     *
+     * @param scanner сканер для ввода данных
+     * @return имя пользователя
      */
-    Engine() {
+    private String greetUser(final Scanner scanner) {
+        System.out.println(WELCOME_MESSAGE);
+        System.out.print(NAME_REQUEST);
+        final String userName = scanner.nextLine();
+        System.out.println(String.format(GREETING_FORMAT, userName));
+        return userName;
     }
 
     /**
-     * Метод, который содержит логику выбора игры.
+     * Обрабатывает один раунд игры.
+     *
+     * @param scanner сканер для ввода данных
+     * @param question вопрос текущего раунда
+     * @param correctAnswer правильный ответ на вопрос
+     * @return true если ответ правильный, false если нет
      */
-    @SuppressWarnings("java:S106")
-    public void pickGame() {
-        System.out.print("""
-            Please enter the game number and press Enter.
-            1 - Greet
-            2 - Even
-            3 - Calc
-            4 - GCD
-            5 - Progression
-            6 - Prime
-            0 - Exit
-            Your choice:\s""");
-        try (Scanner scanner = new Scanner(System.in)) {
-            String choice = scanner.nextLine();
+    private boolean processRound(final Scanner scanner,
+                                 final String question,
+                                 final String correctAnswer) {
+        System.out.println(String.format(QUESTION_FORMAT, question));
+        System.out.print(ANSWER_REQUEST);
+        final String userAnswer = scanner.nextLine();
 
-            if (choice.equals("6")) {
-                Prime game = new Prime(scanner);
-                game.playGame();
-            } else if (choice.equals("5")) {
-                Progression game = new Progression(scanner);
-                game.playGame();
-            } else if (choice.equals("4")) {
-                GCD game = new GCD(scanner);
-                game.playGame();
-            } else if (choice.equals("3")) {
-                Calc game = new Calc(scanner);
-                game.playGame();
-            } else if (choice.equals("2")) {
-                Even game = new Even(scanner);
-                game.playGame();
-            } else if (choice.equals("1")) {
-                Cli game = new Cli(scanner);
-                game.greet();
-            } else if (choice.equals("0")) {
-                System.out.println("Goodbye!");
-            } else {
-                System.out.println("Unknown choice: " + choice);
+        return checkAnswer(userAnswer, correctAnswer);
+    }
+
+    /**
+     * Проверяет ответ пользователя.
+     *
+     * @param userAnswer ответ пользователя
+     * @param correctAnswer правильный ответ
+     * @return true если ответ правильный, false если нет
+     */
+    private boolean checkAnswer(final String userAnswer,
+                                final String correctAnswer) {
+        if (userAnswer.equals(correctAnswer)) {
+            System.out.println(CORRECT_ANSWER_MESSAGE);
+            return true;
+        } else {
+            System.out.println(
+                String.format(WRONG_ANSWER_FORMAT, userAnswer, correctAnswer)
+            );
+            return false;
+        }
+    }
+
+    /**
+     * Завершает игру с выводом результата.
+     *
+     * @param userName имя пользователя
+     * @param isWin true если пользователь выиграл, false если проиграл
+     */
+    private void finishGame(final String userName, final boolean isWin) {
+        if (isWin) {
+            System.out.println(String.format(WIN_FORMAT, userName));
+        } else {
+            System.out.println(String.format(LOSE_FORMAT, userName));
+        }
+    }
+
+    /**
+     * Запускает игру, используя предоставленный объект игры.
+     *
+     * @param game объект игры для запуска
+     */
+    public void play(final Game game) {
+        final Scanner scanner = new Scanner(System.in);
+
+        try {
+            final String userName = greetUser(scanner);
+            System.out.println(game.getRule());
+
+            final String[][] questionAndAnswer = game.getQuestionsAndAnswers();
+
+            for (int i = 0; i < questionAndAnswer.length; i++) {
+                final String question = questionAndAnswer[i][0];
+                final String correctAnswer = questionAndAnswer[i][1];
+
+                final boolean isCorrect = processRound(scanner,
+                                                       question,
+                                                       correctAnswer);
+
+                if (!isCorrect) {
+                    finishGame(userName, false);
+                    return;
+                }
             }
+
+            finishGame(userName, true);
+        } finally {
+            scanner.close();
         }
     }
 }
